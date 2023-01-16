@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'product',
     'djoser',
+    'django_filters',
     'rest_framework_simplejwt.token_blacklist', 
 ]
 
@@ -147,4 +148,8 @@ DJOSER={
     'SERIALIZERS':{
         'user_create':"product.serializers.Myuserserializer"
     }
+}
+REST_FRAMEWORK={
+    'PAGE_SIZE':3
+
 }

@@ -30,6 +30,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter,OrderingFilter
+from .filters import ProductFilter
+from rest_framework.pagination import PageNumberPagination
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -118,10 +122,15 @@ class  ProductDetailView(APIView):
         products=get_object_or_404(Product,id=pk)
         products.delete()
         return Response({"msg:deleted"},status=status.HTTP_204_NO_CONTENT)    
-
+        
 class ProductModelView(ModelViewSet):
     queryset=Product.objects.all()
-    serializer_class=Productserializers
+    serializer_class=PostProductserializers
+    filter_backends= [DjangoFilterBackend,SearchFilter,OrderingFilter]
+    filterset_class=ProductFilter
+    search_fields=['name']
+    ordering_fields=['price']
+    pagination_class=PageNumberPagination
 
 
 class CategoryView(ModelViewSet):

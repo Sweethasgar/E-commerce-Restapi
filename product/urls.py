@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework.routers import DefaultRouter
 router=DefaultRouter()
-router.register("products/all",views.ProductModelView)
+router.register("all",views.ProductModelView,basename="allitems")
 router.register("category",views.CategoryView,basename="review"),
 router.register("cart", views.CartApiView,basename="cart")
 router.register("items/cart", views.cartviewsss,basename="items")
